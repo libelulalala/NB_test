@@ -9,22 +9,29 @@
 </head>
     <body>
         <header class="main-header">
-            <div class="container">
-                <select class="main-header__select" name="city">
-                    <option value="moscow">Москва</option>
-                    <option value="high-price">Киев</option>
-                    <option value="fat">Минск</option>
-                </select>
-                <script type="text/javascript">
-                var CurrentDate = new Date();
-                var MonthName = new Array('Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь');
-                document.write('' + MonthName[CurrentDate.getMonth()] + ', ' + CurrentDate.getDate());
-                </script>
+            <div class="container main-header__wrapper">
+                <div class="main-header__left-column">
+                    <select class="main-header__select" name="city">
+                        <option value="moscow" selected>Москва</option>
+                        <option value="kiev">Киев</option>
+                        <option value="minsk">Минск</option>
+                    </select>
+                    <script type="text/javascript">
+                    var CurrentDate = new Date();
+                    var MonthName = new Array('Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь');
+                    document.write('' + MonthName[CurrentDate.getMonth()] + ', ' + CurrentDate.getDate());
+                    </script>
+                </div>
+
+                <div class="main-header__right-column">
+                    <span class="main-header__exchange-rate main-header__exchange-rate--dollar">77.7</span>
+                </div>
+
             </div>
 
         </header>
 
-        <div class="search" id="search">
+        <div class="search" id="fix-search">
             <div class="container search__wrapper">
                 <a class="logo" href="#"><img src="data:image/svg+xml;
                         base64,
@@ -71,7 +78,7 @@
                         gLz4KICAgICAgICA8L2c+CiAgICAgIDwvZz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPgo="
                         width="69" height="65" alt="Logo"/></a>
                 <div class="search__inner">
-                    <input  class="search__field" type="search" name="search" id="search"placeholder="Я ищу...">
+                    <input  class="search__field" type="search" name="search" id="search" placeholder="Я ищу...">
                     <button class="search__btn" type="submit"></button>
                 </div>
 
@@ -153,8 +160,9 @@
                 </div>
             </div>
         </div>
-
+<script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
     <script src="js/script.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
+
     </body>
 </html>

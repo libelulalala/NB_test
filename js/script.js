@@ -1,9 +1,10 @@
-var headerHeight = 60;
+var headerHeight = 59;
 var headerMargin = 0;
+
 $(function(){
     $(window).scroll(function(){
         var top = $(this).scrollTop();
-        var elem =  $('#search');
+        var elem =  $('#fix-search');
         if (top+headerMargin < headerHeight){
             elem.css('top', (headerHeight - top));
         } else {
