@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css" rel="stylesheet">
+
+    <title>Document</title>
+</head>
+    <body>
+        <header class="main-header">
+            <div class="container">
+                <select class="main-header__select" name="city">
+                    <option value="moscow">Москва</option>
+                    <option value="high-price">Киев</option>
+                    <option value="fat">Минск</option>
+                </select>
+                <script type="text/javascript">
+                var CurrentDate = new Date();
+                var MonthName = new Array('Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь');
+                document.write('' + MonthName[CurrentDate.getMonth()] + ', ' + CurrentDate.getDate());
+                </script>
+            </div>
+
+        </header>
+
+        <div class="search" id="search">
+            <div class="container search__wrapper">
+                <a class="logo" href="#"><img src="data:image/svg+xml;
+                        base64,
+                        PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjw
+                        hLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPg
+                        oKPHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgI
+                        HhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHhtbG5zOnJkZj0i
+                        aHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIKICAgeG1sbnM6c3Z
+                        nPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3
+                        JnLzIwMDAvc3ZnIgogICB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvc
+                        mdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiCiAgIHhtbG5zOmlua3NjYXBlPSJodHRwOi8vd3d3
+                        Lmlua3NjYXBlLm9yZy9uYW1lc3BhY2VzL2lua3NjYXBlIgogICB3aWR0aD0iMTguMDYyMjIybW0
+                        iCiAgIGhlaWdodD0iMTYuOTY0OTQzbW0iCiAgIHZpZXdCb3g9IjAgMCA2My45OTk5OTggNjAuMT
+                        EyMDAyIgogICBpZD0ic3ZnMzUxNCIKICAgdmVyc2lvbj0iMS4xIgogICBpbmtzY2FwZTp2ZXJza
+                        W9uPSIwLjkxIHIxMzcyNSI+CiAgPGRlZnMKICAgICBpZD0iZGVmczM1MTYiIC8+CiAgPHNvZGlw
+                        b2RpOm5hbWVkdmlldwogICAgIGlkPSJiYXNlIgogICAgIHBhZ2Vjb2xvcj0iI2ZmZmZmZiIKICA
+                        gICBib3JkZXJjb2xvcj0iIzY2NjY2NiIKICAgICBib3JkZXJvcGFjaXR5PSIxLjAiCiAgICAgaW
+                        5rc2NhcGU6cGFnZW9wYWNpdHk9IjAuMCIKICAgICBpbmtzY2FwZTpwYWdlc2hhZG93PSIyIgogI
+                        CAgIGlua3NjYXBlOnpvb209IjAuMzUiCiAgICAgaW5rc2NhcGU6Y3g9Ii02NTEuNTcxNDMiCiAg
+                        ICAgaW5rc2NhcGU6Y3k9IjkwLjA1NTk5MSIKICAgICBpbmtzY2FwZTpkb2N1bWVudC11bml0cz0
+                        icHgiCiAgICAgaW5rc2NhcGU6Y3VycmVudC1sYXllcj0ibGF5ZXIxIgogICAgIHNob3dncmlkPS
+                        JmYWxzZSIKICAgICBmaXQtbWFyZ2luLXRvcD0iMCIKICAgICBmaXQtbWFyZ2luLWxlZnQ9IjAiC
+                        iAgICAgZml0LW1hcmdpbi1yaWdodD0iMCIKICAgICBmaXQtbWFyZ2luLWJvdHRvbT0iMCIKICAg
+                        ICBpbmtzY2FwZTp3aW5kb3ctd2lkdGg9IjE2MDAiCiAgICAgaW5rc2NhcGU6d2luZG93LWhlaWd
+                        odD0iODM4IgogICAgIGlua3NjYXBlOndpbmRvdy14PSItOCIKICAgICBpbmtzY2FwZTp3aW5kb3
+                        cteT0iLTgiCiAgICAgaW5rc2NhcGU6d2luZG93LW1heGltaXplZD0iMSIgLz4KICA8bWV0YWRhd
+                        GEKICAgICBpZD0ibWV0YWRhdGEzNTE5Ij4KICAgIDxyZGY6UkRGPgogICAgICA8Y2M6V29yawogI
+                        CAgICAgICByZGY6YWJvdXQ9IiI+CiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kY
+                        zpmb3JtYXQ+CiAgICAgICAgPGRjOnR5cGUKICAgICAgICAgICByZGY6cmVzb3VyY2U9Imh0dHA6L
+                        y9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPgogICAgICAgIDxkYzp0aXRsZT48L
+                        2RjOnRpdGxlPgogICAgICA8L2NjOldvcms+CiAgICA8L3JkZjpSREY+CiAgPC9tZXRhZGF0YT4KI
+                        CA8ZwogICAgIGlua3NjYXBlOmxhYmVsPSJMYXllciAxIgogICAgIGlua3NjYXBlOmdyb3VwbW9kZ
+                        T0ibGF5ZXIiCiAgICAgaWQ9ImxheWVyMSIKICAgICB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNDc2L
+                        jU3MTQzLC01NjIuMzA2MikiPgogICAgPGcKICAgICAgIHN0eWxlPSJkaXNwbGF5OmlubGluZSIKIC
+                        AgICAgIHRyYW5zZm9ybT0ibWF0cml4KDIsMCwwLDIsNDc2LjU3MTQzLDU2MC4zNjIyKSIKICAgICA
+                        gIGlkPSJGTEFUIj4KICAgICAgPGcKICAgICAgICAgaWQ9Imc1Ij4KICAgICAgICA8ZwogICAgICAg
+                        ICAgIGlkPSJnNyI+CiAgICAgICAgICA8cG9seWdvbgogICAgICAgICAgICAgc3R5bGU9ImZpbGw6I
+                        2ZmNDA4ZjtmaWxsLW9wYWNpdHk6MSIKICAgICAgICAgICAgIHBvaW50cz0iMjMuMDE5LDcuNTgyID
+                        IzLjAxOSwyMC44MDQgMTEuNTEsMjcuNDE1IDAsMjAuODA0IDAsNy41ODIgMTEuNTEsMC45NzIgIgo
+                        gICAgICAgICAgICAgaWQ9InBvbHlnb245IiAvPgogICAgICAgIDwvZz4KICAgICAgICA8ZwogICAg
+                        ICAgICAgIGlkPSJnMTEiPgogICAgICAgICAgPHBvbHlnb24KICAgICAgICAgICAgIHBvaW50cz0iM
+                        TEuMzU1LDEzLjE4OSAyMS42NzcsMzEuMDI4IDMyLDEzLjE4OSAiCiAgICAgICAgICAgICBpZD0icG
+                        9seWdvbjEzIgogICAgICAgICAgICAgc3R5bGU9ImZpbGw6IzE5NzZkZjtmaWxsLW9wYWNpdHk6MSI
+                        gLz4KICAgICAgICA8L2c+CiAgICAgIDwvZz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPgo="
+                        width="69" height="65" alt="Logo"/></a>
+                <div class="search__inner">
+                    <input  class="search__field" type="search" name="search" id="search"placeholder="Я ищу...">
+                    <button class="search__btn" type="submit"></button>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="main-content">
+            <div class="container main-content__wrapper">
+                <div class="main-content__items">
+                    <div class="main-content__item">
+                        <img  class="main-content__poster" src=""  width="180" height="270" alt="image">
+                        <div class="main-content__description">
+                            <h2 class="main-content__title">Title</h2>
+                            <span class="main-content__year"> Year</span>
+                        </div>
+                    </div>
+                    <div class="main-content__item">
+                        <img  class="main-content__poster" src=""  width="180" height="270" alt="image">
+                        <div class="main-content__description">
+                            <h2 class="main-content__title">Title</h2>
+                            <span class="main-content__year"> Year</span>
+                        </div>
+                    </div>
+                    <div class="main-content__item">
+                        <img  class="main-content__poster" src=""  width="180" height="270" alt="image">
+                        <div class="main-content__description">
+                            <h2 class="main-content__title">Title</h2>
+                            <span class="main-content__year"> Year</span>
+                        </div>
+                    </div>
+                    <div class="main-content__item">
+                        <img  class="main-content__poster" src=""  width="180" height="270" alt="image">
+                        <div class="main-content__description">
+                            <h2 class="main-content__title">Title</h2>
+                            <span class="main-content__year"> Year</span>
+                        </div>
+                    </div>
+                    <div class="main-content__item">
+                        <img  class="main-content__poster" src=""  width="180" height="270" alt="image">
+                        <div class="main-content__description">
+                            <h2 class="main-content__title">Title</h2>
+                            <span class="main-content__year"> Year</span>
+                        </div>
+                    </div>
+                    <div class="main-content__item">
+                        <img  class="main-content__poster" src=""  width="180" height="270" alt="image">
+                        <div class="main-content__description">
+                            <h2 class="main-content__title">Title</h2>
+                            <span class="main-content__year"> Year</span>
+                        </div>
+                    </div>
+                    <div class="main-content__item">
+                        <img  class="main-content__poster" src=""  width="180" height="270" alt="image">
+                        <h2 class="main-content__title">Title</h2>
+                        <span class="main-content__year"> Year</span>
+                    </div>
+                    <div class="main-content__item">
+                        <img  class="main-content__poster" src=""  width="180" height="270" alt="image">
+                        <div class="main-content__description">
+                            <h2 class="main-content__title">Title</h2>
+                            <span class="main-content__year"> Year</span>
+                        </div>
+                    </div>
+                    <div class="main-content__item">
+                        <img  class="main-content__poster" src=""  width="180" height="270" alt="image">
+                        <div class="main-content__description">
+                            <h2 class="main-content__title">Title</h2>
+                            <span class="main-content__year"> Year</span>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="banner">
+                    <div id="ad">
+                    <script language="javascript" type="text/javascript" src="http://b.liquidustv.com/JS.aspx?BID=21521&TAG=SAXHORNE300x600IBVne&TID=16&ED=7&L=1&CC=0&r=9721524&Preview=1"></script>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <script src="js/script.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    </body>
+</html>
