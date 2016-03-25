@@ -24,12 +24,17 @@ body{
     display: flex;
     justify-content: space-between;
 }
-.main-header__right-column{
-
+.main-header__left-column{
+    width: 195px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .exchange-rate{
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    width: 70px;
 }
 
 
