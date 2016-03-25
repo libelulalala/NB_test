@@ -1,7 +1,33 @@
 var headerHeight = 59;
 var headerMargin = 0;
 var maxCookieDays = 30;
+
 var cookiesCityKey = "city";
+
+var dollarID = "R01235";
+var grivnaID = "R01720";
+var belrublID = "R01090";
+
+var moscowCityName = "moscow";
+var minskCityName = "minsk";
+var kievCityName = "kiev";
+
+
+function getIDByCity(currentCity){
+    switch (currentCity) {
+
+        case moscowCityName:
+            return dollarID;
+            break;
+        case minskCityName:
+            return belrublID;
+            break;
+        case kievCityName:
+            return grivnaID;
+            break;
+
+    }
+}
 
 // Sticky Header
 $(function(){
@@ -30,43 +56,42 @@ function getRuble() {
 // Смена изображения и курса в зависимости от селекта
 $('.main-header__select').change(function() {
 
-    if(this.value == "moscow") {
+    if(this.value == moscowCityName) {
         document.querySelector(".exchange-rate__icon").src = getDollar();
-        document.querySelector(".exchange-rate__text").textContent = " 77.7";
-
-    }else if(this.value == "kiev") {
+    }else if(this.value == kievCityName) {
         document.querySelector(".exchange-rate__icon").src = getRuble();
-        document.querySelector(".exchange-rate__text").textContent = " 1.51";
-
-    }else if(this.value == "minsk") {
+    }else if(this.value == minskCityName) {
         document.querySelector(".exchange-rate__icon").src = getRuble();
-        document.querySelector(".exchange-rate__text").textContent = " 1.11";
-
     }
     // Сохранение Cookie при выборе селекта:
-    createCookie("city", this.value, maxCookieDays);
+    createCookie(cookiesCityKey, this.value, maxCookieDays);
+    getMoneyXml(getIDByCity(this.value));
 });
 
 
 
-// При загрузке проверяем, какой город сохранен в Cookiе, обновим их и установим выбранный город в качестве выбранного значения в селекте
+// При загрузке проверяем, какой город сохранен в Cookiе и установим выбранный город в качестве выбранного значения в селекте
 function onLoadBody() {
-    var currentCity = readCookie("city");
-     if(currentCity== null || currentCity == "moscow") {
-         document.getElementById("current-city-id").value = "moscow";
+    var currentCity = readCookie(cookiesCityKey);
+
+    //todo send req && get values
+     if(currentCity== null || currentCity == moscowCityName) {
          document.querySelector(".exchange-rate__icon").src = getDollar();
-         document.querySelector(".exchange-rate__text").textContent = " 77.7";
-
-     }else if(currentCity == "minsk") {
-         document.getElementById("current-city-id").value = "minsk";
+         currentCity = moscowCityName;
+     }else if(currentCity == minskCityName) {
          document.querySelector(".exchange-rate__icon").src = getRuble();
-         document.querySelector(".exchange-rate__text").textContent = " 1.51";
-
-     }else if(currentCity == "kiev") {
-         document.getElementById("current-city-id").value = "kiev";
+     }else if(currentCity == kievCityName) {
          document.querySelector(".exchange-rate__icon").src = getRuble();
-         document.querySelector(".exchange-rate__text").textContent = " 1.11";
      }
+
+      document.querySelector(".exchange-rate__text").textContent = " 0.0";
+      document.getElementById("current-city-id").value = currentCity;
+
+     getMoneyXml(getIDByCity(currentCity));
+
+
+
+
 };
 
 
@@ -97,66 +122,72 @@ function eraseCookie(name) {
     createCookie(name,"",-1);
 }
 
-$(document).ready(function () {
-    $.ajax({
-        type: "GET",
-        url: "http://testnet.cyber-park.ru/currency.xml",
-        dataType: "xml",
-        success: alert
-    });
-});
-
-
-
 
 
   //
   //
   // // Функция для парсинга XML
-  $(document).ready(function () {
-      $.ajax({
-          type: "GET",
-          url: "http://testnet.cyber-park.ru/currency.xml",
-          dataType: "xml",
-          success:  xmlParser
+
+
+  function getMoneyXml(id){
+
+          //todo раскомментировать в релиз-версии
+        //    $.ajax({
+        //        type: "GET",
+        //        url: "http://testnet.cyber-park.ru/currency.xml",
+        //        dataType: "xml",
+        //        success:  function(data){
+        //          xmlParser(data, id)
+        //        }
+        //
+        //    });
+
+        readXml(id);
+
+  }
+
+function readXml(id){
+    // var markers = null;
+    $(document).ready(function () {
+        $.get("../currency.xml", {}, function (xml){
+            xmlParser(xml, id);
+        });
+    });
+}
+
+
+  function xmlParser(xml, id) {
+
+      // перебираем все теги Valute
+      $(xml).find("Valute").each(function(){
+
+          if($(this).attr("ID") == id){
+              var nominal = parseInt($(this).find("Nominal").html()); //  значение тега nominal
+              var value = parseInt($(this).find("Value").html()); //  значение тега value
+              convertValute(id, nominal, value);
+            //   alert("xmlParser " +  nominal + " " + value + " " + value / nominal);
+          }
+
+
+        // alert("xmlParser" +  $(this).attr("ID"));
 
       });
-  });
-
-
-  function xmlParser(xml) {
-
-
-  alert("xmlParser");
-      // перебираем все теги Valute
-    //   $(xml).find("Valute").each(function(){
-    //       var i =
-    //     var id = $(this).find("Valute").attr("ID"); //  значение атрибута id поля Valute
-    //     var value = $(this).find("value").html(); //  значение тега value
-    //     var nominal = $(this).find("nominal").html(); //  значение тега nominal
-    //     var rate =  nominal / value; // значение курса
-    //     var selectedСity =  document.getElementById("current-city-id").value;  //значение селекта
-      //
-      //
-      //
-    //     if(selectedСity== null || selectedСity == "moscow") {
-      //
-    //         document.querySelector(".exchange-rate__text").textContent = "rate";
-    //     }else if(selectedСity == "minsk") {
-      //
-    //         for (i = 0; i < 3; i++) {
-    //        $(this).find("Valute").attr("ID").value ==
-    //         }
-      //
-    //         document.querySelector(".exchange-rate__text").textContent = "rate";
-    //     }else if(selectedСity == "kiev") {
-      //
-    //         document.querySelector(".exchange-rate__text").textContent = "rate";
-    //     }
-    //
-      //
-    //   });
   }
+
+function convertValute(id, nominal, value){
+    if(id == dollarID) {
+         setCurrentRate(value / nominal);
+    }else {
+         setCurrentRate(nominal / value);
+    }
+}
+
+function setCurrentRate(rate){
+    document.querySelector(".exchange-rate__text").textContent = " " + parseFloat(rate).toFixed(2);
+}
+
+
+
 
 
   // Элементы Image
