@@ -199,7 +199,7 @@ function setCurrentRate(rate){
   // Обращаемся к json файлу
 
  function getFilmsJson (){
-  $.ajax({
+$.ajax({
     url: "films.json",
     // url: "http://testnet.cyber-park.ru/films.json",
 
@@ -209,17 +209,20 @@ function setCurrentRate(rate){
 
 
 
-
-    }
+}
 
 
 function jsonParser(json){
 
-    $.each(json, function(key, val){
-        $.each(key, function(film_key, film_value){
-             alert(film_key + film_value);
 
-      });
+  for(var i=0; i<json.Top.length; i++){
+    //    alert(json.Top[i].Year);
 
-  });
+       $(".main-content__items").append("<div class=\"main-content__item\">\
+       <img class=\"main-content__poster\" src=" + json.Top[i].Poster + "width=\"180\" height=\"270\" alt=\"image\">\
+       <div class=\"main-content__description\">\
+       <h2 class=\"main-content__title\">" + json.Top[i].Title + "</h2>\
+       <span class=\"main-content__year\">" + json.Top[i].Year + "</span></div></div>");
+
+  }
 }
