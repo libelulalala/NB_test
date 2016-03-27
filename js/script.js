@@ -19,7 +19,6 @@ $(function(){
         var top = $(this).scrollTop();
         var stickyHeader =  $(".search");
         var logo = $(".logo");
-        event.preventDefault();
         if (top+headerMargin < headerHeight){
             stickyHeader.css("top", (headerHeight - top));
             logo.css("height", ("69px"));
@@ -29,7 +28,6 @@ $(function(){
         }
     });
 });
-
 
 // Изображение доллара
 function getDollar() {
@@ -43,7 +41,6 @@ function getRuble() {
 
 // Смена изображения и курса в зависимости от селекта
 $(".main-header__select").change(function() {
-
     if(this.value == moscowCityName) {
         document.querySelector(".exchange-rate__icon").src = getDollar();
     }else if(this.value == kievCityName) {
@@ -51,19 +48,18 @@ $(".main-header__select").change(function() {
     }else if(this.value == minskCityName) {
         document.querySelector(".exchange-rate__icon").src = getRuble();
     }
-    // Сохранение Cookie при выборе селекта:
-    createCookie(cookiesCityKey, this.value, maxCookieDays);
 
+// Сохранение Cookie при выборе селекта
+    createCookie(cookiesCityKey, this.value, maxCookieDays);
+// Изменение курса при выборе селекта
     getMoneyXml(getIDByCity(this.value));
 });
 
-
-
-// При загрузке проверяем, какой город сохранен в Cookiе и установим выбранный город в качестве выбранного значения в селекте
+// При загрузке
 function onLoadBody() {
     var currentCity = readCookie(cookiesCityKey);
 
-    //todo send req && get values
+// проверяем, какой город сохранен в Cookiе и установим его в качестве выбранного значения в селекте
      if(currentCity== null || currentCity == moscowCityName) {
          document.querySelector(".exchange-rate__icon").src = getDollar();
          currentCity = moscowCityName;
@@ -72,20 +68,17 @@ function onLoadBody() {
      }else if(currentCity == kievCityName) {
          document.querySelector(".exchange-rate__icon").src = getRuble();
      }
-
-      document.querySelector(".exchange-rate__text").textContent = " 0.0";
       document.getElementById("current-city-id").value = currentCity;
 
-     getMoneyXml(getIDByCity(currentCity));
-
-        getFilmsJson ();
-
-
+// вызываем функцию для получения ID  из XML-документа
+    getMoneyXml(getIDByCity(currentCity));
+// вызываем функцию для получения данных основного контента
+    getFilmsJson();
 };
 
+// Функция, которая возвращает значение атрибута ID поля Valute XML-документа
 function getIDByCity(currentCity){
     switch (currentCity) {
-
         case moscowCityName:
             return dollarID;
             break;
@@ -95,14 +88,11 @@ function getIDByCity(currentCity){
         case kievCityName:
             return grivnaID;
             break;
-
     }
 }
 
-
 // Функция для создания Cookiе
 function createCookie(city,value,days) {
-
     if (days) {
         var date = new Date();
         date.setTime(date.getTime()+(days*24*60*60*1000));
@@ -111,6 +101,7 @@ function createCookie(city,value,days) {
     else var expires = "";
     document.cookie = city+"="+value+expires+"; path=/";
 }
+
 // Функция для чтения Cookiе
 function readCookie(name) {
     var nameEQ = name + "=";
@@ -122,33 +113,29 @@ function readCookie(name) {
     }
     return null;
 }
+
 // Функция для удаления Cookiе
 function eraseCookie(name) {
     createCookie(name,"",-1);
 }
 
-  // // Функция для парсинга XML
+// Парсинг XML-документа
+function getMoneyXml(id){
+      //todo раскомментировать в релиз-версии
+    //    $.ajax({
+    //        type: "GET",
+    //        url: "http://testnet.cyber-park.ru/currency.xml",
+    //        dataType: "xml",
+    //        success:  function(data){
+    //          xmlParser(data, id)
+    //        }
+    //    });
 
-
-  function getMoneyXml(id){
-
-          //todo раскомментировать в релиз-версии
-        //    $.ajax({
-        //        type: "GET",
-        //        url: "http://testnet.cyber-park.ru/currency.xml",
-        //        dataType: "xml",
-        //        success:  function(data){
-        //          xmlParser(data, id)
-        //        }
-        //
-        //    });
-
-        readXml(id);
-
-  }
+    // Функция, вычитывающая локальный XML-документ
+    readXml(id);
+}
 
 function readXml(id){
-    // var markers = null;
     $(document).ready(function () {
         $.get("../currency.xml", {}, function (xml){
             xmlParser(xml, id);
@@ -156,25 +143,19 @@ function readXml(id){
     });
 }
 
+function xmlParser(xml, id) {
+  // перебираем все теги Valute
+  $(xml).find("Valute").each(function(){
 
-  function xmlParser(xml, id) {
+      if($(this).attr("ID") == id){
+          var nominal = parseInt($(this).find("Nominal").html()); //  значение тега nominal
+          var value = parseInt($(this).find("Value").html()); //  значение тега value
+          convertValute(id, nominal, value);
+      }
+  });
+}
 
-      // перебираем все теги Valute
-      $(xml).find("Valute").each(function(){
-
-          if($(this).attr("ID") == id){
-              var nominal = parseInt($(this).find("Nominal").html()); //  значение тега nominal
-              var value = parseInt($(this).find("Value").html()); //  значение тега value
-              convertValute(id, nominal, value);
-            //   alert("xmlParser " +  nominal + " " + value + " " + value / nominal);
-          }
-
-
-        // alert("xmlParser" +  $(this).attr("ID"));
-
-      });
-  }
-// Арифметические преобразования исходных данных для расчета курса
+// Арифметические преобразования исходных данных XML-документа для расчета курса
 function convertValute(id, nominal, value){
     if(id == dollarID) {
          setCurrentRate(value / nominal);
@@ -182,38 +163,25 @@ function convertValute(id, nominal, value){
          setCurrentRate(nominal / value);
     }
 }
-
+// Отображаем на сайте полученные значения, округленные до второго знака после запятой
 function setCurrentRate(rate){
     document.querySelector(".exchange-rate__text").textContent = " " + parseFloat(rate).toFixed(2);
 }
 
+// Парсинг JSON-документа
 
+function getFilmsJson(){
+    $.ajax({
+        url: "films.json",
+        // url: "http://testnet.cyber-park.ru/films.json",
 
-
-
-  // Элементы Image
-  // Обращаемся к json файлу
-
- function getFilmsJson (){
-$.ajax({
-    url: "films.json",
-    // url: "http://testnet.cyber-park.ru/films.json",
-
-    dataType: "json",
-    success:  jsonParser
+        dataType: "json",
+        success:  jsonParser
   });
-
-
-
 }
 
-
 function jsonParser(json){
-
-
   for(var i=0; i<json.Top.length; i++){
-    //    alert(json.Top[i].Year);
-
        $(".main-content__items").append("<div class=\"main-content__item\">\
        <img class=\"main-content__poster\" src=" + json.Top[i].Poster + "width=\"180\" height=\"270\" alt=\"image\">\
        <div class=\"main-content__description\">\
