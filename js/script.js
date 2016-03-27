@@ -13,31 +13,19 @@ var minskCityName = "minsk";
 var kievCityName = "kiev";
 
 
-function getIDByCity(currentCity){
-    switch (currentCity) {
-
-        case moscowCityName:
-            return dollarID;
-            break;
-        case minskCityName:
-            return belrublID;
-            break;
-        case kievCityName:
-            return grivnaID;
-            break;
-
-    }
-}
-
 // Sticky Header
 $(function(){
     $(window).scroll(function(){
         var top = $(this).scrollTop();
-        var elem =  $('#fix-search');
+        var stickyHeader =  $(".search");
+        var logo = $(".logo");
+        event.preventDefault();
         if (top+headerMargin < headerHeight){
-            elem.css('top', (headerHeight - top));
+            stickyHeader.css("top", (headerHeight - top));
+            logo.css("height", ("69px"));
         } else {
-            elem.css('top', headerMargin);
+            stickyHeader.css("top", headerMargin);
+            logo.css("height", ("43px"));
         }
     });
 });
@@ -54,7 +42,7 @@ function getRuble() {
 }
 
 // Смена изображения и курса в зависимости от селекта
-$('.main-header__select').change(function() {
+$(".main-header__select").change(function() {
 
     if(this.value == moscowCityName) {
         document.querySelector(".exchange-rate__icon").src = getDollar();
@@ -65,6 +53,7 @@ $('.main-header__select').change(function() {
     }
     // Сохранение Cookie при выборе селекта:
     createCookie(cookiesCityKey, this.value, maxCookieDays);
+
     getMoneyXml(getIDByCity(this.value));
 });
 
@@ -89,10 +78,26 @@ function onLoadBody() {
 
      getMoneyXml(getIDByCity(currentCity));
 
-
+        getFilmsJson ();
 
 
 };
+
+function getIDByCity(currentCity){
+    switch (currentCity) {
+
+        case moscowCityName:
+            return dollarID;
+            break;
+        case minskCityName:
+            return belrublID;
+            break;
+        case kievCityName:
+            return grivnaID;
+            break;
+
+    }
+}
 
 
 // Функция для создания Cookiе
@@ -109,10 +114,10 @@ function createCookie(city,value,days) {
 // Функция для чтения Cookiе
 function readCookie(name) {
     var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
+    var ca = document.cookie.split(";");
     for(var i=0;i < ca.length;i++) {
         var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        while (c.charAt(0)==" ") c = c.substring(1,c.length);
         if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
     }
     return null;
@@ -173,7 +178,7 @@ function readXml(id){
 
       });
   }
-
+// Арифметические преобразования исходных данных для расчета курса
 function convertValute(id, nominal, value){
     if(id == dollarID) {
          setCurrentRate(value / nominal);
@@ -191,3 +196,30 @@ function setCurrentRate(rate){
 
 
   // Элементы Image
+  // Обращаемся к json файлу
+
+ function getFilmsJson (){
+  $.ajax({
+    url: "films.json",
+    // url: "http://testnet.cyber-park.ru/films.json",
+
+    dataType: "json",
+    success:  jsonParser
+  });
+
+
+
+
+    }
+
+
+function jsonParser(json){
+
+    $.each(json, function(key, val){
+        $.each(key, function(film_key, film_value){
+             alert(film_key + film_value);
+
+      });
+
+  });
+}
