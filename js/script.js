@@ -127,10 +127,6 @@ function eraseCookie(name) {
     createCookie(name,"",-1);
 }
 
-
-
-  //
-  //
   // // Функция для парсинга XML
 
 
